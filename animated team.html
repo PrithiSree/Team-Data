@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STK Neo Team Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #9e895b1e;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: rgb(224, 210, 210);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(180, 5, 5, 0.1);
+        }
+        .header {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        /* Tab Styling */
+        .tabs {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            border-radius: 5px 5px 0 0;
+        }
+        .tab-button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 16px;
+            width: 33.33%;
+        }
+        .tab-button:hover {
+            background-color: #ddd;
+        }
+        .tab-button.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .team-info {
+            margin-bottom: 20px;
+        }
+        .team-members {
+            margin-top: 10px;
+        }
+        .member-card {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>STK Neo Team Dashboard</h1>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'import')">Import</button>
+            <button class="tab-button" onclick="openTab(event, 'export1')">Export</button>
+            <button class="tab-button" onclick="openTab(event, 'export2')"> Resource</button>
+        </div>
+
+
+
+
+        
+
+      <!-- Import Team Tab -->
+        <div id="import" class="tab-content active">
+            <div class="team-info">
+                <h2>About Us</h2>
+                <p>Team </p>
+                <p>For Import, we use Kindle and LCD devices and also perform thorough server-side testing to ensure data integrity and functionality.
+
+</p>
+
+
+
+
+               
+                <!DOCTYPE html>
+<html>
+<head>
+    <title>JIRA Link Button</title>
+    <style>
+        /* Button Styling */
+        .jira-button {
+            padding: 10px 20px;
+            background-color: #0052CC; /* JIRA Blue color */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .jira-button:hover {
+            background-color: #0043A4;
+        }
+
+        /* Container Styling */
+        .button-container {
+            text-align: center;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <!-- Method 1: Using Button with onclick -->
+        <button class="jira-button" onclick="window.location.href='https://issues.labcollab.net/issues/?filter=-2&jql=project%20%3D%20DOCS%20AND%20created%20%3E%3D%202025-01-01%20AND%20created%20%3C%3D%202025-05-12%20AND%20reporter%20in%20(ranjasio)%20order%20by%20created%20DESC'">
+            Go to JIRA
+        </button>
+
+        <!-- Method 2: Using Anchor tag styled as button -->
+     
+
+        <!-- Method 3: Using Button with JavaScript -->
+        <button class="jira-button" id="jiraButton" style="margin-top: 10px;">
+            JIRA Dashboard
+        </button>
+    </div>
+
+    <script>
+        // JavaScript for Method 3
+        document.getElementById('jiraButton').addEventListener('click', function() {
+            window.open('https://issues.labcollab.net/secure/Dashboard.jspa#', '_blank');
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+                <!-- Dropdown Menu -->
+        <select onchange="window.open(this.value, '_blank')" style="padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            <option value="">TEST PLAN </option>
+            <option value="https://quip-amazon.com/9axxAy7RiLJV/TestPlanString-update-to-reflect-IPW-changes-on-STK-AndroidiOS">String update to reflect IPW changes on STK Android/iOS</option>
+            <option value="https://quip-amazon.com/6qN2AKjXdbEc/TestPlanVerification-link-migration">Verification link migration</option>
+            <option value=" https://quip-amazon.com/Ua04AKjbJ5sn/TestPlanStK-For-Web-PDF-options-string-update-and-StK-for-Mac-sub-page-update">StK For Web - PDF options string update and StK for Mac sub page update</option>
+            <option value="https://quip-amazon.com/KJQbAPHH0PqV/Disable-Partial-Domain-Allow-List-Test-Plan">Disable Partial Domain Allow List Test Plan</option>
+                        </select>
+
+        <!-- Dropdown Menu -->
+        <select onchange="window.open(this.value, '_blank')" style="padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            <option value="">WIKI and SOP</option>
+            <option value="https://wiki.labcollab.net/confluence/display/KCP/SOP+for+Importing+Documents+on+Different+Platforms+of+Send+To+Kindle">Importing Documents on Different Platforms of Send To Kindle</option>
+            <option value="https://wiki.labcollab.net/confluence/display/KCP/Sending+Pdocs+in+Gamma+Environment+across+all+platforms#SendingPdocsinGammaEnvironmentacrossallplatforms-HowtouseSTKforEmailinGammaEnvironment">Sending Pdocs in Gamma Environment across all platforms
+            </option>
+            </select>
+            
+     
+            
+            <div class="team-members">
+                    <h3>Team Members</h3>
+                    <div class="member-card">
+                        <h4>Manager: K LOGESH </h4>
+                        <p>User id: klogesh@amazon.com</p>
+                        </div>
+
+                        <div class="member-card">
+                        <h4>QAE: Tina Luo</h4>
+                        <p>User id: luown@amazon.com</p>
+                        </div>
+
+                    <div class="member-card">
+                        <h4>POC: PRITHI SREE </h4>
+                        <p>User id: prithiam@amazon.com</p>
+                    </div>
+                    <!-- Add more team members as needed -->
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- Export Team 1 Tab -->
+        <div id="export1" class="tab-content">
+            <div class="team-info">
+                <h2>Export</h2>
+                <p>For Export, we handle various features, covering exports of E-books, PDCOS, PDFs, and notebooks, ensuring accurate and reliable output across all formats.</p>
+                <div class="team-members">
+                     <!-- Dropdown Menu -->
+        <select onchange="window.open(this.value, '_blank')" style="padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            <option value="">TEST PLAN </option>
+            <option value="https://quip-amazon.com/Tlx0AVXuOI5Z/Export-HWR-Test-Plan">Export-HWR-Test-Plan</option>
+            <option value="https://quip-amazon.com/9vpLAWqgu8nD/Export-OPW-Test-Plan">Export-OPW-Test-Plan</option> 
+            <option value="https://quip-amazon.com/sGaeAgHqUxXV/Export-UIx2-Test-Plan">Export-UIx2-Test-Plan</option>
+            <option value="https://quip-amazon.com/qXi6AsH9FjFT/Export-YJOP-Color-Highlight-Test-Plan">Export-YJOP-Color-Highlight-Test-Plan</option>
+            <option value="https://quip-amazon.com/2UXeADFk0tDY/Export-RTN-migration-to-SIS-Test-Plan">Export-RTN-migration-to-SIS-Test-Plan</option>
+        </select>
+
+        <!-- Dropdown Menu -->
+        <select onchange="window.open(this.value, '_blank')" style="padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            <option value="">WIKI and SOP</option>
+            <option value="https://wiki.labcollab.net/confluence/display/KCP/Export+-+Handwriting+Recognition+-+E2E+Test+Plan">HandwritingRecognition</option>
+            <option value="https://wiki.labcollab.net/confluence/display/KCP/Export+Test+Account+and+Asin">Export-Account-Asin</option>
+            <option value="https://wiki.labcollab.net/confluence/display/KCP/How+To#HowTo-HowtorunPerftestinglocally">Export-Perf</option>
+            </select>
+            
+                          
+                    <h3>Team Members</h3>
+                    <div class="member-card">
+                        <h4>Team Manager: Logesh K </h4>
+                        <p>User id: klogesh@amazon.com</p>
+
+                        </div>
+
+                    <div class="member-card">
+                        <h4>QAE: Tina Luo</h4>
+                        <p>User id: luown@amazon.com</p>
+                    </div>
+
+                    
+                    <div class="member-card">
+                        <h4>Member: Prithi Sree</h4>
+                        <p>User id: prithiam@amazon.com</p>
+                    </div>
+                    <!-- Add more team members as needed -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Export Team 2 Tab -->
+        <div id="export2" class="tab-content">
+            <div class="team-info">
+                <h2>UGS</h2>
+                <p>Second export team handling domestic shipments.</p>
+                <div class="team-members">
+                    <h3>Team Members</h3>
+                    <div class="member-card">
+                        <h4>Team Lead: Robert Brown</h4>
+                        <p>Email: robert.brown@company.com</p>
+                    </div>
+                    <div class="member-card">
+                        <h4>Member: Emily Davis</h4>
+                        <p>Email: emily.davis@company.com</p>
+                    </div>
+                    <!-- Add more team members as needed -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabContent, tabButtons;
+            
+            // Hide all tab content
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].style.display = "none";
+            }
+            
+            // Remove "active" class from all tab buttons
+            tabButtons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(" active", "");
+            }
+            
+            // Show the current tab and add "active" class to the button
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Chat Assistant Toggle Button -->
+<div id="chatToggle" style="position: fixed; bottom: 20px; right: 20px; z-index: 999;">
+  <button onclick="toggleChat()" style="padding: 12px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 30px; cursor: pointer;">
+    Chat with Assistant 🤖
+  </button>
+</div>
+
+<!-- Chat Assistant Box -->
+<div id="chatAssistant" style="display: none; position: fixed; bottom: 80px; right: 20px; width: 300px; background: white; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 999;">
+  <div style="background-color: #4CAF50; color: white; padding: 10px; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+    Assistant Bot
+    <span onclick="toggleChat()" style="float:right; cursor:pointer;">&times;</span>
+  </div>
+  <div id="chatMessages" style="height: 180px; overflow-y: auto; padding: 10px; font-size: 14px;"></div>
+  <div style="display: flex; padding: 10px; gap: 5px;">
+    <input type="text" id="chatInput" placeholder="Type your request..." style="flex: 1; padding: 6px; border: 1px solid #ccc; border-radius: 4px;">
+    <button onclick="processChat()" style="background-color: #4CAF50; color: white; border: none; padding: 6px 10px; border-radius: 4px;">Go</button>
+  </div>
+</div>
+
+</body>
+</html>
