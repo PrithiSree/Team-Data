@@ -3,315 +3,2199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STK Neo Team Dashboard</title>
+    <title>Neo Ops Team Dashboard</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #9e895b1e;
+ /* Root Variables */
+        :root {
+            --aws-color-primary: #b7bec6;
+            --aws-color-secondary: #ff9900;
+            --tab-active: #4CAF50;
+            --tab-hover: #45a049;
+            --card-1: linear-gradient(135deg, #9937c6f0, #bc70a884);
+            --card-2: linear-gradient(135deg, #1daecb, #5b7072);
+            --card-3: linear-gradient(135deg, #f6659d, #8f5b4c);
+            --card-4: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            --card-5: linear-gradient(135deg, #6b8dd6, #8e37d7);
+        --card-6: linear-gradient(135deg, #4ca2cd, #67B26F);
+        --card-7: linear-gradient(135deg, #d4145a, #fbb03b);
+        --card-8: linear-gradient(135deg, #667eea, #764ba2);
         }
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background-color: rgb(224, 210, 210);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(180, 5, 5, 0.1);
-        }
-        .header {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-        }
-        /* Tab Styling */
-        .tabs {
-            overflow: hidden;
-            border: 1px solid #ccc;
-            background-color: #f1f1f1;
-            border-radius: 5px 5px 0 0;
-        }
-        .tab-button {
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 14px 16px;
-            transition: 0.3s;
-            font-size: 16px;
-            width: 33.33%;
-        }
-        .tab-button:hover {
-            background-color: #ddd;
-        }
-        .tab-button.active {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .tab-content {
-            display: none;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-top: none;
-            border-radius: 0 0 5px 5px;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        .team-info {
-            margin-bottom: 20px;
-        }
-        .team-members {
-            margin-top: 10px;
-        }
-        .member-card {
-            background-color: #f9f9f9;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
-            border-left: 4px solid #4CAF50;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>STK Neo Team Dashboard</h1>
-        </div>
 
-        <div class="tabs">
-            <button class="tab-button active" onclick="openTab(event, 'import')">Import</button>
-            <button class="tab-button" onclick="openTab(event, 'export1')">Export</button>
-            <button class="tab-button" onclick="openTab(event, 'export2')"> Resource</button>
-        </div>
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
 
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
 
         
 
-      <!-- Import Team Tab -->
-        <div id="import" class="tab-content active">
-            <div class="team-info">
-                <h2>About Us</h2>
-                <p>Team </p>
-                <p>For Import, we use Kindle and LCD devices and also perform thorough server-side testing to ensure data integrity and functionality.
-
-</p>
-
-
-
-
-               
-                <!DOCTYPE html>
-<html>
-<head>
-    <title>JIRA Link Button</title>
-    <style>
-        /* Button Styling */
-        .jira-button {
-            padding: 10px 20px;
-            background-color: #0052CC; /* JIRA Blue color */
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+         /* Basic Body Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: linear-gradient(45deg, #6b2f2f, #8bd7d2, #b4c17f, #80a7c9, #4b4682, #f6416c);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             font-size: 16px;
-            transition: background-color 0.3s;
+        }
+
+        /* Header Styling */
+        .header {
+            background: rgba(35, 47, 62, 0.95);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 1.5rem;
+            text-align: left;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            padding: 20px;
+    max-width: 1600px; /* Increased from 1200px */
+    width: 95%; /* Added to ensure it takes up most of the screen width */
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+        }
+
+        .tabs {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            padding: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .tab-button {
+            padding: 15px 30px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-button:hover {
+            background: var(--tab-hover);
+            transform: translateY(-2px);
+        }
+
+        .tab-button.active {
+            background: var(--tab-active);
+            color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        .tab-button::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--tab-active);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .tab-button:hover::after {
+            transform: scaleX(1);
+        }
+
+        .tab-button.active::after {
+            transform: scaleX(1);
+        }
+
+        .options-grid {
+            display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Increased from 280px */
+    gap: 30px; /* Increased from 25px */
+    margin: 20px 0;
+    animation: fadeIn 1s ease-out;
+        }
+
+        .option-card {
+           background: var(--card-1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 35px; /* Increased from 25px */
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    animation: float 6s ease-in-out infinite;
+        }
+.option-card h2 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 2rem; /* Increased from 1.8rem */
+}
+
+         .option-card:nth-child(1) { background: var(--card-1); }
+    .option-card:nth-child(2) { background: var(--card-2); }
+    .option-card:nth-child(3) { background: var(--card-3); }
+    .option-card:nth-child(4) { background: var(--card-4); }
+    .option-card:nth-child(5) { background: var(--card-5); }
+    .option-card:nth-child(6) { background: var(--card-6); }
+
+        
+
+        .option-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .option-card h2 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+ .option-card {
+        background: var(--card-1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 25px;
+        text-align: center;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        animation: float 6s ease-in-out infinite;
+    }
+
+    /* Add the new animation styles right here */
+    .toolbox-card {
+        background: linear-gradient(135deg, #4e54c8, #8f94fb) !important;
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .pws-card {
+        background: linear-gradient(135deg, #11998e, #38ef7d) !important;
+        animation: float 6s ease-in-out infinite;
+        animation-delay: 0.2s;
+    }
+
+    .booking-card {
+        background: linear-gradient(135deg, #ee0979, #ff6a00) !important;
+        animation: float 6s ease-in-out infinite;
+        animation-delay: 0.4s;
+    }
+
+    /* Make sure you have the float keyframes animation defined */
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+    }
+
+
+        .jira-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin: 5px;
         }
 
         .jira-button:hover {
-            background-color: #0043A4;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
-        /* Container Styling */
-        .button-container {
-            text-align: center;
-            margin: 20px;
+        .aws-select {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
         }
+
+        .aws-select:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .aws-select option {
+            background: var(--aws-color-primary);
+            color: white;
+        }
+
+        .member-card {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 25px;
+            margin: 15px 0;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            color: white;
+        }
+.member-card h3 {
+    font-size: 1.4rem; /* Increased size */
+    margin-bottom: 10px;
+}
+
+.member-card p {
+    font-size: 1.1rem; /* Increased size */
+}
+        .member-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .tab-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+    
+
+       .tab-content.active {
+    display: block;
+    opacity: 1;
+}
     </style>
 </head>
 <body>
-    <div class="button-container">
-        <!-- Method 1: Using Button with onclick -->
-        <button class="jira-button" onclick="window.location.href='https://issues.labcollab.net/issues/?filter=-2&jql=project%20%3D%20DOCS%20AND%20created%20%3E%3D%202025-01-01%20AND%20created%20%3C%3D%202025-05-12%20AND%20reporter%20in%20(ranjasio)%20order%20by%20created%20DESC'">
-            Go to JIRA
-        </button>
-
-        <!-- Method 2: Using Anchor tag styled as button -->
-     
-
-        <!-- Method 3: Using Button with JavaScript -->
-        <button class="jira-button" id="jiraButton" style="margin-top: 10px;">
-            JIRA Dashboard
-        </button>
+    <div class="header">
+        <h1>Neo Team</h1>
     </div>
 
-    <script>
-        // JavaScript for Method 3
-        document.getElementById('jiraButton').addEventListener('click', function() {
-            window.open('https://issues.labcollab.net/secure/Dashboard.jspa#', '_blank');
-        });
-    </script>
-</body>
-</html>
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-button active" data-tab="import">Import</button>
+            <button class="tab-button" data-tab="Export">Export</button>
+            <button class="tab-button" data-tab="Annotation Notebooks">Annotation Notebooks</button>
+            <button class="tab-button" data-tab="Structured Annotations">Structured Annotations</button>
+            <button class="tab-button" data-tab="UnStructured Annotations">UnStructured Annotations</button>
+            <button class="tab-button" data-tab="Neo Notebooks">Neo Notebooks</button>
+            <button class="tab-button" data-tab="General ToolBox">General ToolBox</button>
+        </div>
 
 
-
-
-                <!-- Dropdown Menu -->
-        <select onchange="window.open(this.value, '_blank')" style="padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
-            <option value="">TEST PLAN </option>
-            <option value="https://quip-amazon.com/9axxAy7RiLJV/TestPlanString-update-to-reflect-IPW-changes-on-STK-AndroidiOS">String update to reflect IPW changes on STK Android/iOS</option>
-            <option value="https://quip-amazon.com/6qN2AKjXdbEc/TestPlanVerification-link-migration">Verification link migration</option>
-            <option value=" https://quip-amazon.com/Ua04AKjbJ5sn/TestPlanStK-For-Web-PDF-options-string-update-and-StK-for-Mac-sub-page-update">StK For Web - PDF options string update and StK for Mac sub page update</option>
-            <option value="https://quip-amazon.com/KJQbAPHH0PqV/Disable-Partial-Domain-Allow-List-Test-Plan">Disable Partial Domain Allow List Test Plan</option>
-                        </select>
-
-        <!-- Dropdown Menu -->
-        <select onchange="window.open(this.value, '_blank')" style="padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
-            <option value="">WIKI and SOP</option>
-            <option value="https://wiki.labcollab.net/confluence/display/KCP/SOP+for+Importing+Documents+on+Different+Platforms+of+Send+To+Kindle">Importing Documents on Different Platforms of Send To Kindle</option>
-            <option value="https://wiki.labcollab.net/confluence/display/KCP/Sending+Pdocs+in+Gamma+Environment+across+all+platforms#SendingPdocsinGammaEnvironmentacrossallplatforms-HowtouseSTKforEmailinGammaEnvironment">Sending Pdocs in Gamma Environment across all platforms
-            </option>
-            </select>
-            
-     
-            
-            <div class="team-members">
-                    <h3>Team Members</h3>
-                    <div class="member-card">
-                        <h4>Manager: K LOGESH </h4>
-                        <p>User id: klogesh@amazon.com</p>
-                        </div>
-
-                        <div class="member-card">
-                        <h4>QAE: Tina Luo</h4>
-                        <p>User id: luown@amazon.com</p>
-                        </div>
-
-                    <div class="member-card">
-                        <h4>POC: PRITHI SREE </h4>
-                        <p>User id: prithiam@amazon.com</p>
+                <!-- Import Tab -->
+<div id="import" class="tab-content active">
+    <div class="options-grid">
+        <!-- Test Plans Card -->
+        <div class="option-card">
+            <h2>Test Plans & Test Suite</h2>
+            <div class="content">
+                <div class="select-container">
+                    <select class="aws-select" id="importTestPlans" onchange="openLink(this.value)">
+                        <option value="">Select Test Plan</option>
+                        <option value="https://quip-amazon.com/5nX3ATZfMYJ8/STK-Sub-page-Test-Plan">STK Sub page</option>
+                        <option value="https://quip-amazon.com/9axxAy7RiLJV/TestPlanString-update-to-reflect-IPW-changes-on-STK-AndroidiOS">String update to reflect IPW changes</option>
+                        <option value="https://quip-amazon.com/Ua04AKjbJ5sn/TestPlanStK-For-Web-PDF-options-string-update-and-StK-for-Mac-sub-page-update">StK For Web - PDF options</option>
+                        <option value="https://quip-amazon.com/KJQbAPHH0PqV/Disable-Partial-Domain-Allow-List-Test-Plan">Disable Partial Domain Allow List</option>
+                        <option value="https://quip-amazon.com/mZfqAq5CcsuD/YJLR-PDocs-on-Other-Eink-Ramp-up">YJLR-PDocs-on-Other-Eink-Ramp-up</option>
+                        <option value="https://quip-amazon.com/phj1AFZEjW3F/Regression-testing-plan-STK-for-Web">Regression-testing-plan-STK-for-Web</option>
+                        <option value="https://quip-amazon.com/av5gA1ajaxVa#SPW9BAfwn7o">CAS Migration</option>
+                        <option value="https://quip-amazon.com/ugh7ABf9PofM/Test-PlanCAS-Migration-Phase2">CAS migration Phase 2</option>
+                        <option value="https://quip-amazon.com/6qN2AKjXdbEc/TestPlanVerification-link-migration">Verification link migration</option>
+                        <option value="https://quip-amazon.com/3LcPAtSEyemu/Test-PlanChrome-Extension-Improvement">Test-PlanChrome-Extension-Improvement</option>
+                        <option value="https://quip-amazon.com/ilGGAy9TXz42/MSFTKindle-Web-Play-With-Session">MSFTKindle-Web-Play-With-Session</option>
+                    </select>
+                    <div class="button-group">
+                        <button class="add-plan-button" onclick="showAddPlanModal('importTestPlans')">+ Add New Plan</button>
+                        <button class="remove-plan-button" onclick="showRemoveModal('importTestPlans')">- Remove Plan</button>
                     </div>
-                    <!-- Add more team members as needed -->
                 </div>
             </div>
         </div>
+
+        <!-- Wiki & SOP Card -->
+        <div class="option-card">
+            <h2>Wiki & SOP</h2>
+            <div class="content">
+                <div class="select-container">
+                    <select class="aws-select" id="importWikiDocs" onchange="openLink(this.value)">
+                        <option value="">Select Documentation</option>
+                        <option value="https://wiki.labcollab.net/confluence/display/KCP/SOP+for+Importing+Documents+on+Different+Platforms+of+Send+To+Kindle">Importing Documents on Different Platforms</option>
+                        <option value="https://wiki.labcollab.net/confluence/display/KCP/Sending+Pdocs+in+Gamma+Environment+across+all+platforms">Sending Pdocs in Gamma Environment</option>
+                    </select>
+                    <div class="button-group">
+                        <button class="add-plan-button" onclick="showAddPlanModal('importWikiDocs')">+ Add New Document</button>
+                        <button class="remove-plan-button" onclick="showRemoveModal('importWikiDocs')">- Remove Document</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+         <!-- Team Members Card -->
+        <div class="option-card">
+            <h2>Team Members</h2>
+            <div class="content">
+                <div class="member-card">
+                    <h3>Manager: K LOGESH</h3>
+                    <p>klogesh@amazon.com</p>
+                </div>
+                <div class="member-card">
+                    <h3>QAE: Guangying Jin</h3>
+                    <p>gyjin@amazon.com</p>
+                </div>
+                <div class="member-card">
+                    <h3>POC: Prithi Sree</h3>
+                    <p>prithiam@amazon.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Common Modals -->
+<!-- Add Plan Modal -->
+<div id="addPlanModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add New Item</h2>
+        <input type="text" id="planName" placeholder="Name">
+        <input type="url" id="planUrl" placeholder="URL">
+        <button onclick="saveNewPlan()">Save</button>
+    </div>
+</div>
+
+<!-- Remove Plan Modal -->
+<div id="removePlanModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeRemoveModal()">&times;</span>
+        <h2>Remove Item</h2>
+        <select id="itemsToRemove" size="5" style="width: 100%; margin: 10px 0;">
+            <!-- Options will be populated dynamically -->
+        </select>
+        <button onclick="removePlan()">Remove Selected</button>
+    </div>
+</div>
+
+<!-- Common Styles -->
+<style>
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background: var(--card-1);
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 500px;
+    color: rgb(173, 20, 20);
+}
+
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.add-plan-button, .remove-plan-button {
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 100%;
+}
+
+.add-plan-button {
+    background: rgba(76, 175, 80, 0.2);
+}
+
+.remove-plan-button {
+    background: rgba(255, 0, 0, 0.2);
+}
+
+.add-plan-button:hover {
+    background: rgba(76, 175, 80, 0.3);
+    transform: translateY(-2px);
+}
+
+.remove-plan-button:hover {
+    background: rgba(255, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.modal input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.modal button {
+    padding: 12px 24px;
+    background: var(--aws-color-secondary);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#itemsToRemove {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#itemsToRemove option {
+    padding: 8px;
+    margin: 2px 0;
+    border-radius: 5px;
+}
+
+#itemsToRemove option:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+</style>
+
+<!-- Common Script -->
+<script>
+let currentSelectId = '';
+
+function showAddPlanModal(selectId) {
+    currentSelectId = selectId;
+    const modal = document.getElementById('addPlanModal');
+    modal.style.display = 'block';
+    document.getElementById('planName').value = '';
+    document.getElementById('planUrl').value = '';
+}
+
+function showRemoveModal(selectId) {
+    currentSelectId = selectId;
+    const modal = document.getElementById('removePlanModal');
+    const itemsSelect = document.getElementById('itemsToRemove');
+    const sourceSelect = document.getElementById(selectId);
+    
+    itemsSelect.innerHTML = '';
+    
+    Array.from(sourceSelect.options).forEach(option => {
+        if (option.value !== "") {
+            const newOption = document.createElement('option');
+            newOption.value = option.value;
+            newOption.textContent = option.text;
+            itemsSelect.appendChild(newOption);
+        }
+    });
+    
+    modal.style.display = 'block';
+}
+
+function saveNewPlan() {
+    const name = document.getElementById('planName').value;
+    const url = document.getElementById('planUrl').value;
+
+    if (!name || !url) {
+        alert('Please fill in both fields');
+        return;
+    }
+
+    const select = document.getElementById(currentSelectId);
+    const option = document.createElement('option');
+    option.value = url;
+    option.textContent = name;
+    select.appendChild(option);
+    
+    const savedPlans = JSON.parse(localStorage.getItem(currentSelectId) || '[]');
+    savedPlans.push({ name, url });
+    localStorage.setItem(currentSelectId, JSON.stringify(savedPlans));
+    
+    document.getElementById('addPlanModal').style.display = 'none';
+}
+
+function removePlan() {
+    const itemsSelect = document.getElementById('itemsToRemove');
+    const sourceSelect = document.getElementById(currentSelectId);
+    
+    if (itemsSelect.selectedIndex === -1) {
+        alert('Please select an item to remove');
+        return;
+    }
+    
+    const selectedValue = itemsSelect.value;
+    
+    Array.from(sourceSelect.options).forEach(option => {
+        if (option.value === selectedValue) {
+            sourceSelect.removeChild(option);
+        }
+    });
+    
+    const savedPlans = JSON.parse(localStorage.getItem(currentSelectId) || '[]');
+    const updatedPlans = savedPlans.filter(plan => plan.url !== selectedValue);
+    localStorage.setItem(currentSelectId, JSON.stringify(updatedPlans));
+    
+    itemsSelect.remove(itemsSelect.selectedIndex);
+    
+    if (itemsSelect.options.length === 0) {
+        closeRemoveModal();
+    }
+}
+
+function closeRemoveModal() {
+    document.getElementById('removePlanModal').style.display = 'none';
+}
+
+function openLink(url) {
+    if (url) {
+        window.open(url, '_blank');
+    }
+}
+
+// Close modals when clicking X or outside
+window.onclick = function(event) {
+    const addModal = document.getElementById('addPlanModal');
+    const removeModal = document.getElementById('removePlanModal');
+    if (event.target == addModal || event.target == removeModal) {
+        addModal.style.display = 'none';
+        removeModal.style.display = 'none';
+    }
+}
+
+document.querySelectorAll('.close').forEach(closeBtn => {
+    closeBtn.onclick = function() {
+        this.closest('.modal').style.display = 'none';
+    }
+});
+
+// Load saved plans when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    const selectIds = [
+        'importTestPlans', 'importWikiDocs',
+        'exportTestPlans', 'exportWikiDocs',
+        'annotationTestPlans', 'annotationWikiDocs',
+        'structuredTestPlans', 'structuredWikiDocs',
+        'unstructuredTestPlans', 'unstructuredWikiDocs',
+        'neoTestPlans', 'neoWikiDocs'
+    ];
+    
+    selectIds.forEach(selectId => {
+        const savedPlans = JSON.parse(localStorage.getItem(selectId) || '[]');
+        const select = document.getElementById(selectId);
+        if (select) {
+            savedPlans.forEach(plan => {
+                const option = document.createElement('option');
+                option.value = plan.url;
+                option.textContent = plan.name;
+                select.appendChild(option);
+            });
+        }
+    });
+});
+
+</script>
+
+<!-- Export Tab -->
+<div id="Export" class="tab-content">
+    <div class="options-grid">
+        <!-- Test Plans Card -->
+        <div class="option-card">
+            <h2>Test Plan & Test Suite</h2>
+            <div class="content">
+                <div class="select-container">
+                    <select class="aws-select" id="exportTestPlans" onchange="openLink(this.value)">
+                        <option value="">Select Test Plan</option>
+                        <option value="https://testrail.p2r.amazon.dev/index.php?/suites/view/48197&group_by=cases:section_id&group_order=asc&display_deleted_cases=0&group_id=423406">Test Suite</option>
+                        <option value="https://quip-amazon.com/Tlx0AVXuOI5Z/Export-HWR-Test-Plan">Export-HWR-Test-Plan</option>
+                        <option value="https://quip-amazon.com/9vpLAWqgu8nD/Export-OPW-Test-Plan">Export-OPW-Test-Plan</option>
+                        <option value="https://quip-amazon.com/sGaeAgHqUxXV/Export-UIx2-Test-Plan">Export-UIx2-Test-Plan</option>
+                        <option value="https://quip-amazon.com/qXi6AsH9FjFT/Export-YJOP-Color-Highlight-Test-Plan">Export-YJOP-Color-Highlight-Test-Plan</option>
+                        <option value="https://quip-amazon.com/2UXeADFk0tDY/Export-RTN-migration-to-SIS-Test-Plan">Export-RTN-migration-to-SIS-Test-Plan</option>
+                        <option value="https://quip-amazon.com/ZMmBAcb8FeMZ/Content-Export-on-Barolo-Test-Plan-Factory">Content-Export-on-Barolo-Test-Plan-Factory</option>
+                    </select>
+                    <div class="button-group">
+                        <button class="add-plan-button" onclick="showAddPlanModal('exportTestPlans')">+ Add New Plan</button>
+                        <button class="remove-plan-button" onclick="showRemoveModal('exportTestPlans')">- Remove Plan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wiki & SOP Card -->
+        <div class="option-card">
+            <h2>Wiki & SOP</h2>
+            <div class="content">
+                <div class="select-container">
+                    <select class="aws-select" id="exportWikiDocs" onchange="openLink(this.value)">
+                        <option value="">Select Documentation</option>
+                        <option value="https://wiki.labcollab.net/confluence/display/KCP/Export+-+Handwriting+Recognition+-+E2E+Test+Plan">HandwritingRecognition</option>
+                        <option value="https://wiki.labcollab.net/confluence/display/KCP/Export+Test+Account+and+Asin">Export-Account-Asin</option>
+                        <option value="https://wiki.labcollab.net/confluence/display/KCP/How+To#HowTo-HowtorunPerftestinglocally">Export-Perf</option>
+                        <option value="https://quip-amazon.com/0wteANzsIGer/STK-Import-Export-Accounts-DA-team#temp:C:QZO5baf21d5b9a7435b8f72d887c">Export-DA Accounts</option>
+                        <option value="https://wiki.labcollab.net/confluence/pages/viewpage.action?pageId=3111731597">Export-RateLimitation-ConvertFS</option>
+                        <option value="https://wiki.labcollab.net/confluence/pages/viewpage.action?pageId=3111731593">Export-Perf-Metrics</option>
+                    </select>
+                    <div class="button-group">
+                        <button class="add-plan-button" onclick="showAddPlanModal('exportWikiDocs')">+ Add New Document</button>
+                        <button class="remove-plan-button" onclick="showRemoveModal('exportWikiDocs')">- Remove Document</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Members Card -->
+        <div class="option-card">
+            <h2>Team Members</h2>
+            <div class="content">
+                <div class="member-card">
+                    <h3>Manager: K LOGESH</h3>
+                    <p>klogesh@amazon.com</p>
+                </div>
+                <div class="member-card">
+                    <h3>QAE: Tina Luo</h3>
+                    <p>luown@amazon.com</p>
+                </div>
+                <div class="member-card">
+                    <h3>POC: Prithi Sree</h3>
+                    <p>prithiam@amazon.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background: var(--card-1);
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 500px;
+    color: white;
+}
+
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.add-plan-button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.add-plan-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.modal input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.modal button {
+    padding: 12px 24px;
+    background: var(--aws-color-secondary);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.select-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+</style>
+
+<script>
+let currentSelectId = '';
+
+function showAddPlanModal(selectId) {
+    currentSelectId = selectId;
+    const modal = document.getElementById('addPlanModal');
+    modal.style.display = 'block';
+    document.getElementById('planName').value = '';
+    document.getElementById('planUrl').value = '';
+}
+
+function saveNewPlan() {
+    const name = document.getElementById('planName').value;
+    const url = document.getElementById('planUrl').value;
+
+    if (!name || !url) {
+        alert('Please fill in both fields');
+        return;
+    }
+
+    // Get the select element
+    const select = document.getElementById(currentSelectId);
+    
+    // Create new option
+    const option = document.createElement('option');
+    option.value = url;
+    option.textContent = name;
+    
+    // Add to select element
+    select.appendChild(option);
+    
+    // Save to localStorage
+    const savedPlans = JSON.parse(localStorage.getItem(currentSelectId) || '[]');
+    savedPlans.push({ name, url });
+    localStorage.setItem(currentSelectId, JSON.stringify(savedPlans));
+    
+    // Close modal
+    document.getElementById('addPlanModal').style.display = 'none';
+}
+
+// Close modal when clicking X
+document.querySelector('.close').onclick = function() {
+    document.getElementById('addPlanModal').style.display = 'none';
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById('addPlanModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Load saved plans when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    ['neoTestPlans', 'neoWikiDocs'].forEach(selectId => {
+        const savedPlans = JSON.parse(localStorage.getItem(selectId) || '[]');
+        const select = document.getElementById(selectId);
+        savedPlans.forEach(plan => {
+            const option = document.createElement('option');
+            option.value = plan.url;
+            option.textContent = plan.name;
+            select.appendChild(option);
+        });
+    });
+});
+</script>
+
+
+<!-- Annotation Notebooks -->
+<div id="Annotation Notebooks" class="tab-content">
+    <div class="options-grid">
+        <!-- Test Plans Card -->
+        <div class="option-card">
+            <h2>Test Plans & Test Suite</h2>
+            <div class="content">
+                <div class="select-container">
+                    <select class="aws-select" id="annotationTestPlans" onchange="openLink(this.value)">
+                        <option value="">Select Test Plan</option>
+                        <option value="https://testrail.p2r.amazon.dev/index.php?/suites/view/52821&group_by=cases:section_id&group_order=asc&display_deleted_cases=0&group_id=513870">Annotation Test Plan 1</option>
+                    </select>
+                    <div class="button-group">
+                        <button class="add-plan-button" onclick="showAddPlanModal('annotationTestPlans')">+ Add New Plan</button>
+                        <button class="remove-plan-button" onclick="showRemoveModal('annotationTestPlans')">- Remove Plan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wiki & SOP Card -->
+        <div class="option-card">
+            <h2>Wiki & SOP</h2>
+            <div class="content">
+                <div class="select-container">
+                    <select class="aws-select" id="annotationWikiDocs" onchange="openLink(this.value)">
+                        <option value="">Select Documentation</option>
+                        <option value="https://wiki.labcollab.net/confluence/display/EINK/Inbook+Annotations+Long+haul+and+performance+Run">InbookAnnotationLongHaul&Perf</option>
+                        <option value="https://quip-amazon.com/xq3iAHsqaRbZ/OPW-AN-Sanity-in-Mainline#temp:C:TYK17c5f4b51e604b64873e1be0b">OPW-Annotation</option>
+                        <option value="https://wiki.labcollab.net/confluence/display/EINK/SOP+For+Inbook+Annotations+Feature+Overview">SOP-for-Inbook</option>
+                        <option value="https://wiki.labcollab.net/confluence/display/EINK/Notebook+FrontEnd+SOP">NotebookFrontEnd</option>
+                    </select>
+                    <div class="button-group">
+                        <button class="add-plan-button" onclick="showAddPlanModal('annotationWikiDocs')">+ Add New Document</button>
+                        <button class="remove-plan-button" onclick="showRemoveModal('annotationWikiDocs')">- Remove Document</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Team Members Card -->
+        <div class="option-card">
+            <h2>Team Members</h2>
+            <div class="content">
+                <div class="member-card">
+                    <h3>Manager: K LOGESH</h3>
+                    <p>klogesh@amazon.com</p>
+                </div>
+                <div class="member-card">
+                    <h3>QAE: Xu Luo</h3>
+                    <p>luoxu@amazon.com</p>
+                </div>
+                <div class="member-card">
+                    <h3>POC: Abishek Ranjan</h3>
+                    <p>oabsrin@amazon.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Plan Modal -->
+<div id="addPlanModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add New Item</h2>
+        <input type="text" id="planName" placeholder="Name">
+        <input type="url" id="planUrl" placeholder="URL">
+        <button onclick="saveNewPlan()">Save</button>
+    </div>
+</div>
+
+<!-- Remove Plan Modal -->
+<div id="removePlanModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeRemoveModal()">&times;</span>
+        <h2>Remove Item</h2>
+        <div class="remove-list" id="removeList">
+            <!-- Items will be populated dynamically -->
+        </div>
+    </div>
+</div>
+
+<style>
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background: var(--card-1);
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 500px;
+    color: white;
+}
+
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.add-plan-button, .remove-plan-button {
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    flex: 1;
+}
+
+.add-plan-button {
+    background: rgba(76, 175, 80, 0.2);
+}
+
+.remove-plan-button {
+    background: rgba(255, 0, 0, 0.2);
+}
+
+.add-plan-button:hover {
+    background: rgba(76, 175, 80, 0.3);
+    transform: translateY(-2px);
+}
+
+.remove-plan-button:hover {
+    background: rgba(255, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.modal input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.modal button {
+    padding: 12px 24px;
+    background: var(--aws-color-secondary);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.select-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.remove-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.remove-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 5px 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    color: white;
+}
+
+.remove-item button {
+    background: rgba(255, 0, 0, 0.3);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    width: auto;
+    margin: 0;
+}
+
+.remove-item button:hover {
+    background: rgba(255, 0, 0, 0.5);
+}
+</style>
+
+<script>
+let currentSelectId = '';
+
+function showAddPlanModal(selectId) {
+    currentSelectId = selectId;
+    const modal = document.getElementById('addPlanModal');
+    modal.style.display = 'block';
+    document.getElementById('planName').value = '';
+    document.getElementById('planUrl').value = '';
+}
+
+function showRemoveModal(selectId) {
+    currentSelectId = selectId;
+    const modal = document.getElementById('removePlanModal');
+    const removeList = document.getElementById('removeList');
+    removeList.innerHTML = '';
+
+    const select = document.getElementById(selectId);
+    const options = Array.from(select.options).slice(1); // Skip the first "Select" option
+
+    options.forEach(option => {
+        const item = document.createElement('div');
+        item.className = 'remove-item';
+        item.innerHTML = `
+            <span>${option.text}</span>
+            <button onclick="removePlan('${option.value}', '${selectId}')">Remove</button>
+        `;
+        removeList.appendChild(item);
+    });
+
+    modal.style.display = 'block';
+}
+
+function saveNewPlan() {
+    const name = document.getElementById('planName').value;
+    const url = document.getElementById('planUrl').value;
+
+    if (!name || !url) {
+        alert('Please fill in both fields');
+        return;
+    }
+
+    // Get the select element
+    const select = document.getElementById(currentSelectId);
+    
+    // Create new option
+    const option = document.createElement('option');
+    option.value = url;
+    option.textContent = name;
+    
+    // Add to select element
+    select.appendChild(option);
+    
+    // Save to localStorage
+    const savedPlans = JSON.parse(localStorage.getItem(currentSelectId) || '[]');
+    savedPlans.push({ name, url });
+    localStorage.setItem(currentSelectId, JSON.stringify(savedPlans));
+    
+    // Close modal
+    document.getElementById('addPlanModal').style.display = 'none';
+}
+
+function removePlan(url, selectId) {
+    const select = document.getElementById(selectId);
+    const options = Array.from(select.options);
+    const optionToRemove = options.find(opt => opt.value === url);
+    
+    if (optionToRemove) {
+        select.removeChild(optionToRemove);
+        
+        // Update localStorage
+        const savedPlans = JSON.parse(localStorage.getItem(selectId) || '[]');
+        const updatedPlans = savedPlans.filter(plan => plan.url !== url);
+        localStorage.setItem(selectId, JSON.stringify(updatedPlans));
+        
+        // Refresh the remove modal
+        showRemoveModal(selectId);
+    }
+}
+
+function closeRemoveModal() {
+    document.getElementById('removePlanModal').style.display = 'none';
+}
+
+// Close modals when clicking X
+document.querySelector('.close').onclick = function() {
+    document.getElementById('addPlanModal').style.display = 'none';
+}
+
+// Close modals when clicking outside
+window.onclick = function(event) {
+    const addModal = document.getElementById('addPlanModal');
+    const removeModal = document.getElementById('removePlanModal');
+    if (event.target == addModal) {
+        addModal.style.display = 'none';
+    }
+    if (event.target == removeModal) {
+        removeModal.style.display = 'none';
+    }
+}
+
+// Load saved plans when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    ['neoTestPlans', 'neoWikiDocs'].forEach(selectId => {
+        const savedPlans = JSON.parse(localStorage.getItem(selectId) || '[]');
+        const select = document.getElementById(selectId);
+        savedPlans.forEach(plan => {
+            const option = document.createElement('option');
+            option.value = plan.url;
+            option.textContent = plan.name;
+            select.appendChild(option);
+        });
+    });
+});
+
+function openLink(url) {
+    if (url) {
+        window.open(url, '_blank');
+    }
+}
+</script>
+
+<!-- Structured Annotations -->
+<div id="Structured Annotations" class="tab-content">
+    <div class="options-grid">
+        <!-- Test Plans Card -->
+        <div class="option-card">
+            <h2>Test Plans & Test Suite</h2>
+            <div class="content">
+                <div class="select-container">
+                    <select class="aws-select" id="structuredTestPlans" onchange="openLink(this.value)">
+                        <option value="">Select Documentation</option>
+                        <option value="https://testrail.p2r.amazon.dev/index.php?/suites/view/52869&group_by=cases:section_id&group_order=asc&display_deleted_cases=0&group_id=517543">Test Suite</option>
+                    </select>
+                    <div class="button-group">
+                        <button class="add-plan-button" onclick="showAddPlanModal('structuredTestPlans')">+ Add New Plan</button>
+                        <button class="remove-plan-button" onclick="showRemoveModal('structuredTestPlans')">- Remove Plan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wiki & SOP Card -->
+        <div class="option-card">
+            <h2>Wiki & SOP</h2>
+            <div class="content">
+                <div class="select-container">
+                    <select class="aws-select" id="structuredWikiDocs" onchange="openLink(this.value)">
+                        <option value="">Select Documentation</option>
+                        <option value="https://wiki.labcollab.net/confluence/display/EINK/Inbook+Annotations+Long+haul+and+performance+Run">InbookAnnotationLongHaul&Perf</option>
+                        <option value="https://quip-amazon.com/xq3iAHsqaRbZ/OPW-AN-Sanity-in-Mainline#temp:C:TYK17c5f4b51e604b64873e1be0b">OPW-Annotation</option>
+                        <option value="https://wiki.labcollab.net/confluence/display/EINK/SOP+For+Inbook+Annotations+Feature+Overview">SOP-for-Inbook</option>
+                    </select>
+                    <div class="button-group">
+                        <button class="add-plan-button" onclick="showAddPlanModal('structuredWikiDocs')">+ Add New Document</button>
+                        <button class="remove-plan-button" onclick="showRemoveModal('structuredWikiDocs')">- Remove Document</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Members Card -->
+        <div class="option-card">
+            <h2>Team Members</h2>
+            <div class="content">
+                <div class="member-card">
+                    <h3>Manager: K LOGESH</h3>
+                    <p>klogesh@amazon.com</p>
+                </div>
+                <div class="member-card">
+                    <h3>QAE: Xu Luo</h3>
+                    <p>luoxu@amazon.com</p>
+                </div>
+                <div class="member-card">
+                    <h3>POC: Pavithra</h3>
+                    <p>pavith@amazon.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        
+<!-- Add Plan Modal -->
+<div id="addPlanModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add New Item</h2>
+        <input type="text" id="planName" placeholder="Name">
+        <input type="url" id="planUrl" placeholder="URL">
+        <button onclick="saveNewPlan()">Save</button>
+    </div>
+</div>
+
+<style>
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background: var(--card-1);
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 500px;
+    color: white;
+}
+
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.add-plan-button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.add-plan-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.modal input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.modal button {
+    padding: 12px 24px;
+    background: var(--aws-color-secondary);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.select-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+</style>
+
+<script>
+let currentSelectId = '';
+
+function showAddPlanModal(selectId) {
+    currentSelectId = selectId;
+    const modal = document.getElementById('addPlanModal');
+    modal.style.display = 'block';
+    document.getElementById('planName').value = '';
+    document.getElementById('planUrl').value = '';
+}
+
+function saveNewPlan() {
+    const name = document.getElementById('planName').value;
+    const url = document.getElementById('planUrl').value;
+
+    if (!name || !url) {
+        alert('Please fill in both fields');
+        return;
+    }
+
+    // Get the select element
+    const select = document.getElementById(currentSelectId);
+    
+    // Create new option
+    const option = document.createElement('option');
+    option.value = url;
+    option.textContent = name;
+    
+    // Add to select element
+    select.appendChild(option);
+    
+    // Save to localStorage
+    const savedPlans = JSON.parse(localStorage.getItem(currentSelectId) || '[]');
+    savedPlans.push({ name, url });
+    localStorage.setItem(currentSelectId, JSON.stringify(savedPlans));
+    
+    // Close modal
+    document.getElementById('addPlanModal').style.display = 'none';
+}
+
+// Close modal when clicking X
+document.querySelector('.close').onclick = function() {
+    document.getElementById('addPlanModal').style.display = 'none';
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById('addPlanModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Load saved plans when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    ['neoTestPlans', 'neoWikiDocs'].forEach(selectId => {
+        const savedPlans = JSON.parse(localStorage.getItem(selectId) || '[]');
+        const select = document.getElementById(selectId);
+        savedPlans.forEach(plan => {
+            const option = document.createElement('option');
+            option.value = plan.url;
+            option.textContent = plan.name;
+            select.appendChild(option);
+        });
+    });
+});
+</script>
+
+
+<!-- UnStructured Annotations -->
+<div id="UnStructured Annotations" class="tab-content">
+    <div class="options-grid">
+        <!-- Test Plans Card -->
+        <div class="option-card">
+            <h2>Test Plans</h2>
+            <div class="content">
+                <div class="select-container">
+                    <select class="aws-select" id="unstructuredTestPlans" onchange="openLink(this.value)">
+                        <option value="">Select Test Plan</option>
+                        <option value="https://quip-amazon.com/aNZXA2kiOYAT/EReader-Reader-Un-structured-Annotation-Ramp-up">Reader Un-structured Annotation</option>
+                    </select>
+                    <div class="button-group">
+                        <button class="add-plan-button" onclick="showAddPlanModal('unstructuredTestPlans')">+ Add New Plan</button>
+                        <button class="remove-plan-button" onclick="showRemoveModal('unstructuredTestPlans')">- Remove Plan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wiki & SOP Card -->
+        <div class="option-card">
+            <h2>Wiki & SOP</h2>
+            <div class="content">
+                <div class="select-container">
+                    <select class="aws-select" id="unstructuredWikiDocs" onchange="openLink(this.value)">
+                        <option value="">Select Documentation</option>
+                        <option value="https://wiki.labcollab.net/confluence/pages/viewpage.action?pageId=2914634601">LongHaul&CMAT</option>
+                        <option value="https://wiki.labcollab.net/confluence/display/EINK/Neo-Editor%3A+Steps+to+Trigger+the+P0+Automation">P0AutomationTrigger</option>
+                        <option value="https://wiki.labcollab.net/confluence/display/EINK/Neo-Editor%3A+Steps+to+Trigger+the+Performance+testing">Performance Testing</option>
+                        <option value="https://wiki.labcollab.net/confluence/display/EINK/Steps+to+follow+while+testing+Performance+scenarios+manually">Perf Manual</option>
+                        <option value="https://wiki.labcollab.net/confluence/display/EINK/Edit+Action+Failure+Configuration+Files">FailureConfig</option>
+                        <option value="https://wiki.labcollab.net/confluence/display/EINK/High+Speed+Camera+Perf+Test">High Speed Camera</option>
+                    </select>
+                    <div class="button-group">
+                        <button class="add-plan-button" onclick="showAddPlanModal('unstructuredWikiDocs')">+ Add New Document</button>
+                        <button class="remove-plan-button" onclick="showRemoveModal('unstructuredWikiDocs')">- Remove Document</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Members Card -->
+        <div class="option-card">
+            <h2>Team Members</h2>
+            <div class="content">
+                <div class="member-card">
+                    <h3>Manager: K LOGESH</h3>
+                    <p>klogesh@amazon.com</p>
+                </div>
+                <div class="member-card">
+                    <h3>QAE:xinyue zhang</h3>
+                    <p>xnyuez@amazon.com</p>
+                </div>
+                <div class="member-card">
+                    <h3>POC: Naveen Kumar </h3>
+                    <p>kumnavet@amazon.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Plan Modal -->
+<div id="addPlanModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add New Item</h2>
+        <input type="text" id="planName" placeholder="Name">
+        <input type="url" id="planUrl" placeholder="URL">
+        <button onclick="saveNewPlan()">Save</button>
+    </div>
+</div>
+
+<style>
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background: var(--card-1);
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 500px;
+    color: white;
+}
+
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.add-plan-button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.add-plan-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.modal input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.modal button {
+    padding: 12px 24px;
+    background: var(--aws-color-secondary);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.select-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+</style>
+
+<script>
+let currentSelectId = '';
+
+function showAddPlanModal(selectId) {
+    currentSelectId = selectId;
+    const modal = document.getElementById('addPlanModal');
+    modal.style.display = 'block';
+    document.getElementById('planName').value = '';
+    document.getElementById('planUrl').value = '';
+}
+
+function saveNewPlan() {
+    const name = document.getElementById('planName').value;
+    const url = document.getElementById('planUrl').value;
+
+    if (!name || !url) {
+        alert('Please fill in both fields');
+        return;
+    }
+
+    // Get the select element
+    const select = document.getElementById(currentSelectId);
+    
+    // Create new option
+    const option = document.createElement('option');
+    option.value = url;
+    option.textContent = name;
+    
+    // Add to select element
+    select.appendChild(option);
+    
+    // Save to localStorage
+    const savedPlans = JSON.parse(localStorage.getItem(currentSelectId) || '[]');
+    savedPlans.push({ name, url });
+    localStorage.setItem(currentSelectId, JSON.stringify(savedPlans));
+    
+    // Close modal
+    document.getElementById('addPlanModal').style.display = 'none';
+}
+
+// Close modal when clicking X
+document.querySelector('.close').onclick = function() {
+    document.getElementById('addPlanModal').style.display = 'none';
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById('addPlanModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Load saved plans when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    ['neoTestPlans', 'neoWikiDocs'].forEach(selectId => {
+        const savedPlans = JSON.parse(localStorage.getItem(selectId) || '[]');
+        const select = document.getElementById(selectId);
+        savedPlans.forEach(plan => {
+            const option = document.createElement('option');
+            option.value = plan.url;
+            option.textContent = plan.name;
+            select.appendChild(option);
+        });
+    });
+});
+</script>
+
+<!-- Neo Notebooks -->
+<div id="Neo Notebooks" class="tab-content">
+    <div class="options-grid">
+        <!-- Test Plans Card -->
+        <div class="option-card">
+            <h2>Test Plans</h2>
+            <div class="content">
+                <div class="select-container">
+                    <select class="aws-select" id="neoTestPlans" onchange="openLink(this.value)">
+                        <option value="">Select Test Plan</option>
+                        <option value="https://quip-amazon.com/0n8BAa0ovlol/Test-plan-for-Local-Note-Recovery">Local Note Recovery</option>
+                        <option value="https://quip-amazon.com/8b7rAOnsAspL/Test-Plan-Per-Page-Template">Per page Template</option>
+                        <option value="https://quip-amazon.com/HBwNAkDXQzhf/Test-Plan-recovered-notebook-UI">RecoveryNotebook</option>
+                    </select>
+                    <div class="button-group">
+                        <button class="add-plan-button" onclick="showAddPlanModal('neoTestPlans')">Add New Plan</button>
+                        <button class="remove-plan-button" onclick="showRemoveModal('neoTestPlans')">Remove Plan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wiki & SOP Card -->
+        <div class="option-card">
+            <h2>Wiki & SOP</h2>
+            <div class="content">
+                <div class="select-container">
+                    <select class="aws-select" id="neoWikiDocs" onchange="openLink(this.value)">
+                        <option value="">Select Documentation</option>
+                        <option value="https://quip-amazon.com/0n8BAa0ovlol/Test-plan-for-Local-Note-Recovery">Local Note Recovery</option>
+                        <option value="https://quip-amazon.com/8b7rAOnsAspL/Test-Plan-Per-Page-Template">Per page Template</option>
+                        <option value="https://wiki.labcollab.net/confluence/pages/viewpage.action?spaceKey=EINK&title=NEO+NBM+SOP">NEONBMSOP</option>
+                        <option value="https://wiki.labcollab.net/confluence/display/EINK/Notebook+FrontEnd+SOP">NotebookFrontEnd</option> 
+                        <option value="https://quip-amazon.com/HBwNAkDXQzhf/Test-Plan-recovered-notebook-UI">RecoveryNotebook</option>
+                        <option value="https://wiki.labcollab.net/confluence/pages/viewpage.action?pageId=2616770972">Notebook Perf Testing & Results Audit</option>
+                        <option value="https://quip-amazon.com/hRibANQwUbid/Feb23-Writing-Brushes-and-Lasso-Select">Feb23-Writing-Brushes-and-Lasso-Select</option>
+                    </select>
+                    <div class="button-group">
+                        <button class="add-plan-button" onclick="showAddPlanModal('neoWikiDocs')">Add New Document</button>
+                        <button class="remove-plan-button" onclick="showRemoveModal('neoWikiDocs')">Remove Document</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Members Card -->
+        <div class="option-card">
+            <h2>Team Members</h2>
+            <div class="content">
+                <div class="member-card">
+                    <h3>Manager: K LOGESH</h3>
+                    <p>klogesh@amazon.com</p>
+                </div>
+                <div class="member-card">
+                    <h3>QAE: Yanan Chong</h3>
+                    <p>choyanan@amazon.com</p>
+                </div>
+                <div class="member-card">
+                    <h3>POC: Prince Devakumar</h3>
+                    <p>devakpri@amazon.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Plan Modal -->
+<div id="addPlanModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add New Item</h2>
+        <input type="text" id="planName" placeholder="Name">
+        <input type="url" id="planUrl" placeholder="URL">
+        <button onclick="saveNewPlan()">Save</button>
+    </div>
+</div>
+
+<!-- Remove Plan Modal -->
+<div id="removePlanModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeRemoveModal()">&times;</span>
+        <h2>Remove Item</h2>
+        <div class="remove-list" id="removeList">
+            <!-- Items will be populated dynamically -->
+        </div>
+        <select id="itemsToRemove" size="5" style="width: 100%; margin: 10px 0;">
+            <!-- Options will be populated dynamically -->
+        </select>
+        <button onclick="removePlan()">Remove Selected</button>
+    </div>
+</div>
+
+<style>
+
+
+    
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background: var(--card-1);
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 500px;
+    color: white;
+}
+
+.remove-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.remove-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 5px 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    color: white;
+}
+
+#itemsToRemove {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#itemsToRemove option {
+    padding: 8px;
+    margin: 2px 0;
+    border-radius: 5px;
+}
+
+#itemsToRemove option:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.remove-plan-button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background: rgba(255, 0, 0, 0.2);
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.remove-plan-button:hover {
+    background: rgba(255, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.add-plan-button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.add-plan-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.modal input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.modal button {
+    padding: 12px 24px;
+    background: var(--aws-color-secondary);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.select-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+</style>
+
+<script>
+let currentSelectId = '';
+
+function showAddPlanModal(selectId) {
+    currentSelectId = selectId;
+    const modal = document.getElementById('addPlanModal');
+    modal.style.display = 'block';
+    document.getElementById('planName').value = '';
+    document.getElementById('planUrl').value = '';
+}
+
+function saveNewPlan() {
+    const name = document.getElementById('planName').value;
+    const url = document.getElementById('planUrl').value;
+
+    if (!name || !url) {
+        alert('Please fill in both fields');
+        return;
+    }
+
+    // Get the select element
+    const select = document.getElementById(currentSelectId);
+    
+    // Create new option
+    const option = document.createElement('option');
+    option.value = url;
+    option.textContent = name;
+    
+    // Add to select element
+    select.appendChild(option);
+    
+    // Save to localStorage
+    const savedPlans = JSON.parse(localStorage.getItem(currentSelectId) || '[]');
+    savedPlans.push({ name, url });
+    localStorage.setItem(currentSelectId, JSON.stringify(savedPlans));
+    
+    // Close modal
+    document.getElementById('addPlanModal').style.display = 'none';
+}
+
+// Close modal when clicking X
+document.querySelector('.close').onclick = function() {
+    document.getElementById('addPlanModal').style.display = 'none';
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById('addPlanModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Load saved plans when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    ['neoTestPlans', 'neoWikiDocs'].forEach(selectId => {
+        const savedPlans = JSON.parse(localStorage.getItem(selectId) || '[]');
+        const select = document.getElementById(selectId);
+        savedPlans.forEach(plan => {
+            const option = document.createElement('option');
+            option.value = plan.url;
+            option.textContent = plan.name;
+            select.appendChild(option);
+        });
+    });
+});
+</script>
+
+       
+        <!-- General ToolBox Tab -->
+        <div id="General ToolBox" class="tab-content">
+            <div class="options-grid">
+                <div class="option-card">
+                  <h2>E-ink Builds</h2>
+                    <div class="content">
+                        <a href="https://kbits.build.lab126.a2z.com/" class="jira-button" target="_blank">Kbits</a>
+                    </div>
+                </div>
+
+                <div class="option-card">
+                    <h2>JIRA</h2>
+                    <div class="content">
+                         <a href="https://issues.labcollab.net/issues/?filter=-2" class="jira-button" target="_blank">JIRA Issues</a>
+                        </div>
+                </div>
+
+                <div class="option-card">
+                    <h2>Device Tracker</h2>
+                    <div class="content">
+                        <a href="https://devicetracker.amazon.com/devices" class="jira-button" target="_blank">Device Management</a>
+                    </div>
+                </div>
+
+                 <div class="option-card">
+                    <h2>SMART TOOL</h2>
+                    <div class="content">
+                        <a href="https://share.amazon.com/sites/smart%20kindle/Lists/test1/AllItems.aspx" class="jira-button" target="_blank">SMART IDEA's</a>
+                    </div>
+                </div>
+
+                <div class="option-card">
+                    <h2>KPN Tool</h2>
+                    <div class="content">
+                        <a href="https://kpn-dashboard.amazon.com/kpns/ebookTool/" class="jira-button" target="_blank">KPN Tool</a>
+                    </div>
+                </div>
+
+                 <div class="option-card">
+                    <h2>K-POP Tool</h2>
+                    <div class="content">
+                        <a href="https://kindle-populator.amazon.com/index.html#/customer/A34UQ5WXLZUVE8" class="jira-button" target="_blank">K-POP Tool</a>
+                    </div>
+                </div>
+
+                 <div class="option-card">
+                    <h2>Send TO Kindle</h2>
+                    <div class="content">
+                        <a href="https://www.amazon.com/sendtokindle" class="jira-button" target="_blank">STK Prod</a>
+                    </div>
+                </div>
+                
+                <div class="option-card pws-card"> 
+            <h2>PWS Data</h2>
+            <div class="content">
+                <a href="https://quip-amazon.com/lqY1AbJyu9J6/PWS-data" class="jira-button" target="_blank">PWS Data</a>
+            </div>
+        </div>
+
+        <div class="option-card PPMS"> 
+            <h2>PPMS Dashboard</h2>
+            <div class="content">
+                <a href="http://ppms.aka.amazon.com/index.html" class="jira-button" target="_blank">PPMS</a>
+            </div>
+        </div>
+
+         <div class="option-card">
+                    <h2>Time off & Leave</h2>
+                    <div class="content">
+                        <a href="https://atoz.amazon.work/time" class="jira-button" target="_blank">Time off & Leave</a>
+                    </div>
+                </div>
+
+        <div class="option-card booking-card"> 
+            <h2>Room Booking</h2>
+            <div class="content">
+                <a href="https://meetings.amazon.com/#/room-booking" class="jira-button" target="_blank">room-booking</a>
+            </div>
+            
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to open links in new tab
+        function openLink(url) {
+            if (url) {
+                window.open(url, '_blank');
+            }
+        }
+
+        // Enhanced tab switching functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Store the active tab in localStorage
+            const activeTab = localStorage.getItem('activeTab') || 'import';
+            switchTab(activeTab);
+
+            // Add click listeners to all tab buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    switchTab(tabId);
+                    // Save active tab to localStorage
+                    localStorage.setItem('activeTab', tabId);
+                });
+            });
+        });
+
+        // Function to switch tabs
+        function switchTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected tab content
+            const selectedTab = document.getElementById(tabId);
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+
+            // Add active class to selected button
+            const selectedButton = document.querySelector(`.tab-button[data-tab="${tabId}"]`);
+            if (selectedButton) {
+                selectedButton.classList.add('active');
+            }
+
+            // Animate cards in the newly displayed tab
+            const cards = document.querySelectorAll(`#${tabId} .option-card`);
+            cards.forEach((card, index) => {
+                card.style.opacity = "0";
+                card.style.transform = "translateY(20px)";
+                setTimeout(() => {
+                    card.style.opacity = "1";
+                    card.style.transform = "translateY(0)";
+                }, index * 100);
+            });
+        }
+
+        // Cleanup function to handle memory management and state reset
+function cleanup() {
+    // Remove event listeners
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.removeEventListener('click', null);
+    });
+
+    // Clear any active modals
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => {
+        modal.style.display = 'none';
+    });
+
+    // Clear any running timeouts
+    const highestTimeoutId = setTimeout(() => {});
+    for (let i = 0; i < highestTimeoutId; i++) {
+        clearTimeout(i);
+    }
+
+    // Reset any global variables
+    currentSelectId = '';
+
+    // Clear any temporary storage if needed
+    // localStorage.removeItem('temporary_data');
+
+    // Remove the beforeunload listener itself
+    window.removeEventListener('beforeunload', cleanup);
+}
+
+// Add cleanup event listener
+window.addEventListener('beforeunload', cleanup);
+
+// Also add DOMContentLoaded listener to initialize everything
+document.addEventListener('DOMContentLoaded', function() {
+    // Your existing DOMContentLoaded code here
+    const activeTab = localStorage.getItem('activeTab') || 'import';
+    switchTab(activeTab);
+
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.addEventListener('click', function() {
+            const tabId = this.getAttribute('data-tab');
+            switchTab(tabId);
+            localStorage.setItem('activeTab', tabId);
+        });
+    });
+
+    // Load saved plans
+    ['neoTestPlans', 'neoWikiDocs'].forEach(selectId => {
+        const savedPlans = JSON.parse(localStorage.getItem(selectId) || '[]');
+        const select = document.getElementById(selectId);
+        if (select) {
+            savedPlans.forEach(plan => {
+                const option = document.createElement('option');
+                option.value = plan.url;
+                option.textContent = plan.name;
+                select.appendChild(option);
+            });
+        }
+    });
+});
+    // Add the new functions here
         
 
-        <!-- Export Team 1 Tab -->
-        <div id="export1" class="tab-content">
-            <div class="team-info">
-                <h2>Export</h2>
-                <p>For Export, we handle various features, covering exports of E-books, PDCOS, PDFs, and notebooks, ensuring accurate and reliable output across all formats.</p>
-                <div class="team-members">
-                     <!-- Dropdown Menu -->
-        <select onchange="window.open(this.value, '_blank')" style="padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
-            <option value="">TEST PLAN </option>
-            <option value="https://quip-amazon.com/Tlx0AVXuOI5Z/Export-HWR-Test-Plan">Export-HWR-Test-Plan</option>
-            <option value="https://quip-amazon.com/9vpLAWqgu8nD/Export-OPW-Test-Plan">Export-OPW-Test-Plan</option> 
-            <option value="https://quip-amazon.com/sGaeAgHqUxXV/Export-UIx2-Test-Plan">Export-UIx2-Test-Plan</option>
-            <option value="https://quip-amazon.com/qXi6AsH9FjFT/Export-YJOP-Color-Highlight-Test-Plan">Export-YJOP-Color-Highlight-Test-Plan</option>
-            <option value="https://quip-amazon.com/2UXeADFk0tDY/Export-RTN-migration-to-SIS-Test-Plan">Export-RTN-migration-to-SIS-Test-Plan</option>
-        </select>
-
-        <!-- Dropdown Menu -->
-        <select onchange="window.open(this.value, '_blank')" style="padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
-            <option value="">WIKI and SOP</option>
-            <option value="https://wiki.labcollab.net/confluence/display/KCP/Export+-+Handwriting+Recognition+-+E2E+Test+Plan">HandwritingRecognition</option>
-            <option value="https://wiki.labcollab.net/confluence/display/KCP/Export+Test+Account+and+Asin">Export-Account-Asin</option>
-            <option value="https://wiki.labcollab.net/confluence/display/KCP/How+To#HowTo-HowtorunPerftestinglocally">Export-Perf</option>
-            </select>
-            
-                          
-                    <h3>Team Members</h3>
-                    <div class="member-card">
-                        <h4>Team Manager: Logesh K </h4>
-                        <p>User id: klogesh@amazon.com</p>
-
-                        </div>
-
-                    <div class="member-card">
-                        <h4>QAE: Tina Luo</h4>
-                        <p>User id: luown@amazon.com</p>
-                    </div>
-
-                    
-                    <div class="member-card">
-                        <h4>Member: Prithi Sree</h4>
-                        <p>User id: prithiam@amazon.com</p>
-                    </div>
-                    <!-- Add more team members as needed -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Export Team 2 Tab -->
-        <div id="export2" class="tab-content">
-            <div class="team-info">
-                <h2>UGS</h2>
-                <p>Second export team handling domestic shipments.</p>
-                <div class="team-members">
-                    <h3>Team Members</h3>
-                    <div class="member-card">
-                        <h4>Team Lead: Robert Brown</h4>
-                        <p>Email: robert.brown@company.com</p>
-                    </div>
-                    <div class="member-card">
-                        <h4>Member: Emily Davis</h4>
-                        <p>Email: emily.davis@company.com</p>
-                    </div>
-                    <!-- Add more team members as needed -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function openTab(evt, tabName) {
-            var i, tabContent, tabButtons;
-            
-            // Hide all tab content
-            tabContent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabContent.length; i++) {
-                tabContent[i].style.display = "none";
-            }
-            
-            // Remove "active" class from all tab buttons
-            tabButtons = document.getElementsByClassName("tab-button");
-            for (i = 0; i < tabButtons.length; i++) {
-                tabButtons[i].className = tabButtons[i].className.replace(" active", "");
-            }
-            
-            // Show the current tab and add "active" class to the button
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
+        function addViewPlansButton() {
+            const header = document.querySelector('.header');
+            const viewButton = document.createElement('button');
+            viewButton.className = 'view-plans-button';
+            viewButton.innerHTML = 'View Stored Plans';
+            viewButton.onclick = viewStoredPlans;
+            header.appendChild(viewButton);
         }
+
+        // Add this to your existing DOMContentLoaded event listener
+        document.addEventListener('DOMContentLoaded', function() {
+            // ... your existing code ...
+            addViewPlansButton();
+        });
     </script>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Add the new CSS -->
+    <style>
+        .view-plans-button {
+            position: absolute;
+            right: 180px;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 8px 16px;
+            background: var(--aws-color-primary);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-<!-- Chat Assistant Toggle Button -->
-<div id="chatToggle" style="position: fixed; bottom: 20px; right: 20px; z-index: 999;">
-  <button onclick="toggleChat()" style="padding: 12px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 30px; cursor: pointer;">
-    Chat with Assistant 🤖
-  </button>
-</div>
+        .view-plans-button:hover {
+            background: #3a4b63;
+            transform: translateY(-50%) scale(1.05);
+        }
 
-<!-- Chat Assistant Box -->
-<div id="chatAssistant" style="display: none; position: fixed; bottom: 80px; right: 20px; width: 300px; background: white; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 999;">
-  <div style="background-color: #4CAF50; color: white; padding: 10px; border-top-left-radius: 10px; border-top-right-radius: 10px;">
-    Assistant Bot
-    <span onclick="toggleChat()" style="float:right; cursor:pointer;">&times;</span>
-  </div>
-  <div id="chatMessages" style="height: 180px; overflow-y: auto; padding: 10px; font-size: 14px;"></div>
-  <div style="display: flex; padding: 10px; gap: 5px;">
-    <input type="text" id="chatInput" placeholder="Type your request..." style="flex: 1; padding: 6px; border: 1px solid #ccc; border-radius: 4px;">
-    <button onclick="processChat()" style="background-color: #4CAF50; color: white; border: none; padding: 6px 10px; border-radius: 4px;">Go</button>
-  </div>
-</div>
+        .stored-plans-section {
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
 
+        .stored-plans-section h3 {
+            margin: 0 0 10px 0;
+            color: var(--aws-color-secondary);
+        }
+
+        .stored-plans-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .stored-plans-section li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(16, 196, 46, 0.578);
+        }
+
+        .stored-plans-section a {
+            color: var(--aws-color-secondary);
+            text-decoration: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(181, 12, 12, 0.1);
+        }
+
+        .stored-plans-section a:hover {
+            background: rgba(5, 231, 223, 0.733);
+        }
+    </style>
 </body>
 </html>
